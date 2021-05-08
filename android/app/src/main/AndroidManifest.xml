@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.conormccormick.dicecord_mobile">
    <application
-        android:label="Dicecord Flutter"
+        android:label="Dicecord"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

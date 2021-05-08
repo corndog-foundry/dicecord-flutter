@@ -1,5 +1,6 @@
 import 'package:dicecord_mobile/data_classes/game.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 
 class CreateGameScreen extends StatefulWidget {
@@ -195,18 +196,24 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
             ElevatedButton(
               child: Text("Create"),
               onPressed: () async {
-                await createGame(
-                  new Game(
-                    gameName: gameName,
-                    hook: webhookURL,
-                    nickname: nickname,
-                    verbose: verboseMode,
-                    labels: diceLabels,
-                    diceType: diceType
-                  )
-                );
-                Navigator.pop(context);
-                Navigator.popAndPushNamed(context, '/');
+                if (gameName != '' && webhookURL != '' && nickname != '' && diceType != '') {
+                  await createGame(
+                      new Game(
+                          gameName: gameName,
+                          hook: webhookURL,
+                          nickname: nickname,
+                          verbose: verboseMode,
+                          labels: diceLabels,
+                          diceType: diceType
+                      )
+                  );
+                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/');
+                } else {
+                  Fluttertoast.showToast(
+                      msg: "Please make sure that all fields are filled in."
+                  );
+                }
               }
             )
           ],
