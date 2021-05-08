@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -761,7 +762,12 @@ class _MainScreenState extends State<MainScreen> {
               List rollOutcome = roll();
               int total = rollOutcome[0];
               List rollResults = rollOutcome[1];
-              String header = "${args.nickname} rolled: $rollLabel = $total";
+              String header = "$rollLabel = $total";
+
+              Fluttertoast.showToast(msg: header);
+
+              header = "${args.nickname} rolled: $header";
+
               List fields = [];
 
               if (args.verboseMode) {
@@ -998,14 +1004,7 @@ class _MainScreenState extends State<MainScreen> {
               int success = rollOutcome[0];
               int advantage = rollOutcome[1];
 
-              swRollLabel = swRollLabel.replaceAll('boost', ':blue_circle:');
-              swRollLabel = swRollLabel.replaceAll('setback', ':black_circle:');
-              swRollLabel = swRollLabel.replaceAll('ability', ':green_circle:');
-              swRollLabel = swRollLabel.replaceAll('difficulty', ':purple_circle:');
-              swRollLabel = swRollLabel.replaceAll('proficiency', ':yellow_circle:');
-              swRollLabel = swRollLabel.replaceAll('challenge', ':red_circle:');
-
-              String header = "${args.nickname} rolled: $swRollLabel = ";
+              String header = "$swRollLabel = ";
 
               if (success > 0) {
                 header += "Success($success)";
@@ -1018,6 +1017,17 @@ class _MainScreenState extends State<MainScreen> {
               } else if (advantage < 0) {
                 header += " + Threat(${advantage.abs()})";
               }
+
+              Fluttertoast.showToast(msg: header);
+
+              header = "${args.nickname} rolled: $header";
+
+              header = header.replaceAll('boost', ':blue_circle:');
+              header = header.replaceAll('setback', ':black_circle:');
+              header = header.replaceAll('ability', ':green_circle:');
+              header = header.replaceAll('difficulty', ':purple_circle:');
+              header = header.replaceAll('proficiency', ':yellow_circle:');
+              header = header.replaceAll('challenge', ':red_circle:');
 
               var payload = json.encode(buildPayload(header, rollOutcome[2]));
 
@@ -1211,8 +1221,7 @@ class _MainScreenState extends State<MainScreen> {
               int light = rollOutcome[0];
               int dark = rollOutcome[1];
 
-              swForceRollLabel = swForceRollLabel.replaceAll('force', ':white_circle:');
-              String header = "${args.nickname} rolled: $swForceRollLabel = ";
+              String header = "$swForceRollLabel = ";
 
               if (light > 0) {
                 header += "Light($light)";
@@ -1225,6 +1234,12 @@ class _MainScreenState extends State<MainScreen> {
                   header += "Dark($dark)";
                 }
               }
+
+              Fluttertoast.showToast(msg: header);
+
+              header = "${args.nickname} rolled: $header";
+              header = header.replaceAll('force', ':white_circle:');
+
 
               var payload = json.encode(buildPayload(header, rollOutcome[2]));
 
@@ -1287,10 +1302,13 @@ class _MainScreenState extends State<MainScreen> {
               List rollOutcome = rollVampire(args.verboseMode);
               int successes = rollOutcome[0];
               List fields = rollOutcome[1];
-              vampireRollLabel = vampireRollLabel.replaceAll('normal', ':black_circle:');
-              vampireRollLabel = vampireRollLabel.replaceAll('hunger', ':red_circle:');
-              String header = "${args.nickname} rolled: $vampireRollLabel "
-                  "= $successes Successes";
+
+              String header = "$vampireRollLabel = $successes Successes";
+              Fluttertoast.showToast(msg: header);
+
+              header = "${args.nickname} rolled: $header";
+              header = header.replaceAll('normal', ':black_circle:');
+              header = header.replaceAll('hunger', ':red_circle:');
 
               var payload = json.encode(buildPayload(header, fields));
               print(payload);
