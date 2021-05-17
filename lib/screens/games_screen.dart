@@ -33,9 +33,16 @@ class GamesScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     Game game = snapshot.data.toList()[index];
 
-                    return GameTile(
-                      game: game,
-                      gameListIndex: index,
+                    return Column(
+                      children: [
+                        GameTile(
+                          game: game,
+                          gameListIndex: index,
+                        ),
+                        Divider(
+                          thickness: 1.0,
+                        )
+                      ],
                     );
                   },
                 )

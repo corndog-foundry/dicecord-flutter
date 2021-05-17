@@ -181,17 +181,21 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
               DropdownButton(
                 items: [
                   DropdownMenuItem(
-                    child: Text("Standard Dice"),
+                    child: Text("Pool: Standard Dice"),
                     value: "Standard Dice",
                   ),
                   DropdownMenuItem(
-                    child: Text("Star Wars FFG / Genesys"),
+                    child: Text("Pool: Star Wars FFG / Genesys"),
                     value: "Star Wars FFG / Genesys",
                   ),
                   DropdownMenuItem(
-                    child: Text("Vampire the Masquerade 5e"),
+                    child: Text("Pool: Vampire the Masquerade 5e"),
                     value: "Vampire the Masquerade 5e",
                   ),
+                  DropdownMenuItem(
+                  child: Text("Sheet: D&D 5th Edition"),
+                  value: "D&D 5th Edition",
+                )
                 ],
                 onChanged: (val) {
                   setState(() {

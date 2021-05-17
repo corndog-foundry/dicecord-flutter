@@ -1,8 +1,13 @@
 import 'dart:io';
 
+import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
+import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
 import 'package:dicecord_mobile/data_classes/game.dart';
+import 'package:dicecord_mobile/screens/5e/add_feature.dart';
+import 'package:dicecord_mobile/screens/5e/edit_character.dart';
 import 'package:dicecord_mobile/screens/create_game_screen.dart';
 import 'package:dicecord_mobile/screens/games_screen.dart';
+import 'package:dicecord_mobile/screens/main_screen_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:dicecord_mobile/screens/main_screen.dart';
 
@@ -15,6 +20,8 @@ Future<void> main() async {
   Directory dir = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(dir.path);
   Hive.registerAdapter(GameAdapter());
+  Hive.registerAdapter(Character5eAdapter());
+  Hive.registerAdapter(Feature5eAdapter());
 
   runApp(DicecordApp());
 }
@@ -30,11 +37,17 @@ class DicecordApp extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 31, 40, 59),
       ),
       initialRoute: '/',
-      routes: {
-        '/': (context) => GamesScreen(),
-        '/main': (context) => MainScreen(),
-        '/creategame': (context) => CreateGameScreen(),
-      },
+        routes: {
+          // Main Routes
+          '/': (context) => GamesScreen(),
+          '/main/pool': (context) => MainScreen(),
+          '/main/sheet': (context) => MainScreenSheet(),
+          '/creategame': (context) => CreateGameScreen(),
+
+          // 5e Routes
+          '/5e/addfeature': (context) => AddFeature5e(),
+          '/5e/editcharacter': (context) => EditCharacter5e(),
+        }
     );
   }
 }
