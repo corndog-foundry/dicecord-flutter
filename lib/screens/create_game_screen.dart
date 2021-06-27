@@ -18,6 +18,8 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
   bool diceLabels = false;
   String diceType = '';
 
+  bool showAdvancedOptions = false;
+
   void setGameName (String newName) {
     gameName = newName;
   }
@@ -43,203 +45,266 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
         title: Text("Add a Game"),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Row(
-              children: [
-                Text(
-                  "Enter the",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 221, 246, 254),
-                  ),
-                ),
-                Text(
-                  " Game Name ",
-                  style: TextStyle(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "Enter the",
+                    style: TextStyle(
                       color: Color.fromARGB(255, 221, 246, 254),
-                      fontWeight: FontWeight.bold
+                      fontSize: 18.0
+                    ),
                   ),
-                ),
-                Text(
-                  "here:",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 221, 246, 254),
-                  ),
-                )
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Game Name',
-              ),
-              onChanged: setGameName,
-            ),
-            Row(
-              children: [
-                Text(
-                  "Enter your",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 221, 246, 254),
-                  ),
-                ),
-                Text(
-                  " Dicecord Code ",
-                  style: TextStyle(
+                  Text(
+                    " Game Name ",
+                    style: TextStyle(
                       color: Color.fromARGB(255, 221, 246, 254),
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0
+                    ),
                   ),
-                ),
-                Text(
-                  "here:",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 221, 246, 254),
-                  ),
-                )
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Dicecord Code',
-              ),
-              onChanged: setDicecordCode,
-            ),
-            Row(
-              children: [
-                Text(
-                  "Enter a",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 221, 246, 254),
-                  ),
-                ),
-                Text(
-                  " nickname ",
-                  style: TextStyle(
+                  Text(
+                    "here:",
+                    style: TextStyle(
                       color: Color.fromARGB(255, 221, 246, 254),
-                      fontWeight: FontWeight.bold
-                  ),
+                      fontSize: 18.0
+                    ),
+                  )
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              SizedBox(height: 10.0),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Game Name',
                 ),
-                Text(
-                  "here:",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 221, 246, 254),
+                onChanged: setGameName,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 221, 246, 254),
+                  fontSize: 16.0
+                ),
+              ),
+              SizedBox(height: 25.0),
+              Row(
+                children: [
+                  Text(
+                    "Enter your",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 246, 254),
+                      fontSize: 18.0
+                    ),
                   ),
-                )
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Nickname',
+                  Text(
+                    " Dicecord Code ",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 246, 254),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0
+                    ),
+                  ),
+                  Text(
+                    "here:",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 246, 254),
+                      fontSize: 18.0
+                    ),
+                  )
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
               ),
-              onChanged: setNickname,
-            ),
-            Text(
-              "Verbose mode? (Display the result of all rolls)",
-              style: TextStyle(
-                color: Color.fromARGB(255, 221, 246, 254),
+              SizedBox(height: 10.0),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Dicecord Code',
+                ),
+                onChanged: setDicecordCode,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 221, 246, 254),
+                    fontSize: 16.0
+                ),
               ),
-            ),
-            Checkbox(
-                value: verboseMode,
-                onChanged: (newValue) {
+              SizedBox(height: 25.0),
+              Row(
+                children: [
+                  Text(
+                    "Enter a",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 246, 254),
+                      fontSize: 18.0
+                    ),
+                  ),
+                  Text(
+                    " nickname ",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 246, 254),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0
+                    ),
+                  ),
+                  Text(
+                    "here:",
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 221, 246, 254),
+                      fontSize: 18.0
+                    ),
+                  )
+                ],
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              SizedBox(height: 10.0),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Nickname',
+                ),
+                onChanged: setNickname,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 221, 246, 254),
+                    fontSize: 16.0
+                ),
+              ),
+              SizedBox(height: 25.0),
+              Text(
+                "What type of dice does the game use?",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 221, 246, 254),
+                  fontSize: 18.0
+                ),
+              ),
+              SizedBox(height: 25.0),
+              DropdownButton(
+                items: [
+                  DropdownMenuItem(
+                    child: Text("Standard Dice"),
+                    value: "Standard Dice",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Star Wars FFG / Genesys"),
+                    value: "Star Wars FFG / Genesys",
+                  ),
+                  DropdownMenuItem(
+                    child: Text("Vampire the Masquerade 5e"),
+                    value: "Vampire the Masquerade 5e",
+                  ),
+                ],
+                onChanged: (val) {
                   setState(() {
-                    verboseMode = newValue;
+                    diceType = val;
                   });
-                }
-            ),
-            Text(
-              "Add dice labels?",
-              style: TextStyle(
-                color: Color.fromARGB(255, 221, 246, 254),
+                },
+                hint: Text(
+                  diceType,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Color.fromARGB(255, 221, 246, 254),
+                  ),
+                ),
               ),
-            ),
-            Checkbox(
-                value: diceLabels,
-                onChanged: (newValue) {
-                  setState(() {
-                    diceLabels = newValue;
-                  });
-                }
-            ),
-            Text(
-              "What type of dice does the game use?",
-              style: TextStyle(
-                color: Color.fromARGB(255, 221, 246, 254),
+              SizedBox(height: 25.0),
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      showAdvancedOptions = !showAdvancedOptions;
+                    });
+                  },
+                  child: Text(
+                      showAdvancedOptions ? 'Hide Advanced Options' : 'Show Advanced Options'
+                  )
               ),
-            ),
-            DropdownButton(
-              items: [
-                DropdownMenuItem(
-                  child: Text("Standard Dice"),
-                  value: "Standard Dice",
+              SizedBox(height: 25.0),
+              Visibility(
+                visible: showAdvancedOptions,
+                child: Column(
+                  children: [
+                    Text(
+                      "Verbose mode? (Display the result of all rolls)",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 221, 246, 254),
+                          fontSize: 18.0
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Checkbox(
+                        value: verboseMode,
+                        onChanged: (newValue) {
+                          setState(() {
+                            verboseMode = newValue;
+                          });
+                        }
+                    ),
+                    SizedBox(height: 25.0),
+                    Text(
+                      "Add dice labels?",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 221, 246, 254),
+                          fontSize: 18.0
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Checkbox(
+                        value: diceLabels,
+                        onChanged: (newValue) {
+                          setState(() {
+                            diceLabels = newValue;
+                          });
+                        }
+                    ),
+                    SizedBox(height: 25.0),
+                  ],
                 ),
-                DropdownMenuItem(
-                  child: Text("Star Wars FFG / Genesys"),
-                  value: "Star Wars FFG / Genesys",
-                ),
-                DropdownMenuItem(
-                  child: Text("Vampire the Masquerade 5e"),
-                  value: "Vampire the Masquerade 5e",
-                ),
-              ],
-              onChanged: (val) {
-                setState(() {
-                  diceType = val;
-                });
-              },
-              hint: Text(diceType),
-            ),
-            ElevatedButton(
-              child: Text("Create"),
-              onPressed: () async {
-                if (gameName != '' && dicecordCode != '' && nickname != '' && diceType != '') {
-                  var dbSettings = new ConnectionSettings(
-                    host: dbHost,
-                    port: dbPort,
-                    user: dbUser,
-                    password: dbPassword,
-                    db: dbName
-                  );
+              ),
 
-                  var db = await MySqlConnection.connect(dbSettings);
-                  var results = await db.query('select CHANNELHOOK from CHANNELS where CHANNELCODE=$dicecordCode');
-
-                  String webhook = 'INVALID';
-
-                  for (var row in results) {
-                    webhook = row[0];
-                  }
-
-                  if (webhook != 'INVALID') {
-                    await createGame(
-                        new Game(
-                            gameName: gameName,
-                            hook: webhook,
-                            nickname: nickname,
-                            verbose: verboseMode,
-                            labels: diceLabels,
-                            diceType: diceType
-                        )
+              ElevatedButton(
+                child: Text("Create Game"),
+                onPressed: () async {
+                  if (gameName != '' && dicecordCode != '' && nickname != '' && diceType != '') {
+                    var dbSettings = new ConnectionSettings(
+                      host: dbHost,
+                      port: dbPort,
+                      user: dbUser,
+                      password: dbPassword,
+                      db: dbName
                     );
-                    Navigator.pop(context);
-                    Navigator.popAndPushNamed(context, '/');
+
+                    var db = await MySqlConnection.connect(dbSettings);
+                    var results = await db.query('select CHANNELHOOK from CHANNELS where CHANNELCODE=$dicecordCode');
+
+                    String webhook = 'INVALID';
+
+                    for (var row in results) {
+                      webhook = row[0];
+                    }
+
+                    if (webhook != 'INVALID') {
+                      await createGame(
+                          new Game(
+                              gameName: gameName,
+                              hook: webhook,
+                              nickname: nickname,
+                              verbose: verboseMode,
+                              labels: diceLabels,
+                              diceType: diceType
+                          )
+                      );
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(context, '/');
+                    } else {
+                      Fluttertoast.showToast(msg: "Please make sure that your Dicecord Code is correct");
+                    }
                   } else {
-                    Fluttertoast.showToast(msg: "Please make sure that your Dicecord Code is correct");
+                    Fluttertoast.showToast(
+                        msg: "Please make sure that all fields are filled in."
+                    );
                   }
-                } else {
-                  Fluttertoast.showToast(
-                      msg: "Please make sure that all fields are filled in."
-                  );
                 }
-              }
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
