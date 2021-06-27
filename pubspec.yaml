@@ -37,6 +37,7 @@ dependencies:
   build_runner: ^2.0.1
   fluttertoast: ^8.0.6
   desktop_window: ^0.4.0
+  mysql1: ^0.19.2
 
 dev_dependencies:
   flutter_test:
