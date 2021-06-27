@@ -5,7 +5,6 @@ import 'package:dicecord_mobile/screens/create_game_screen.dart';
 import 'package:dicecord_mobile/screens/games_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dicecord_mobile/screens/main_screen.dart';
-import 'package:dicecord_mobile/screens/opening_screen.dart';
 
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
