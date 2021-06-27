@@ -2,6 +2,8 @@ import 'package:dicecord_mobile/data_classes/game.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
+import 'package:mysql1/mysql1.dart';
+import 'package:dicecord_mobile/data_classes/database_information.dart';
 
 class CreateGameScreen extends StatefulWidget {
   @override
@@ -10,7 +12,7 @@ class CreateGameScreen extends StatefulWidget {
 
 class _CreateGameScreenState extends State<CreateGameScreen> {
   String gameName = '';
-  String webhookURL = '';
+  String dicecordCode = '';
   String nickname = '';
   bool verboseMode = false;
   bool diceLabels = false;
@@ -20,8 +22,8 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
     gameName = newName;
   }
 
-  void setURL (String newURL) {
-    webhookURL = newURL;
+  void setDicecordCode (String newURL) {
+    dicecordCode = newURL;
   }
 
   void setNickname (String newNickname) {
@@ -84,7 +86,7 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                   ),
                 ),
                 Text(
-                  " Webhook URL ",
+                  " Dicecord Code ",
                   style: TextStyle(
                       color: Color.fromARGB(255, 221, 246, 254),
                       fontWeight: FontWeight.bold
@@ -102,9 +104,9 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Webhook URL',
+                hintText: 'Dicecord Code',
               ),
-              onChanged: setURL,
+              onChanged: setDicecordCode,
             ),
             Row(
               children: [
@@ -196,19 +198,40 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
             ElevatedButton(
               child: Text("Create"),
               onPressed: () async {
-                if (gameName != '' && webhookURL != '' && nickname != '' && diceType != '') {
-                  await createGame(
-                      new Game(
-                          gameName: gameName,
-                          hook: webhookURL,
-                          nickname: nickname,
-                          verbose: verboseMode,
-                          labels: diceLabels,
-                          diceType: diceType
-                      )
+                if (gameName != '' && dicecordCode != '' && nickname != '' && diceType != '') {
+                  var dbSettings = new ConnectionSettings(
+                    host: dbHost,
+                    port: dbPort,
+                    user: dbUser,
+                    password: dbPassword,
+                    db: dbName
                   );
-                  Navigator.pop(context);
-                  Navigator.popAndPushNamed(context, '/');
+
+                  var db = await MySqlConnection.connect(dbSettings);
+                  var results = await db.query('select CHANNELHOOK from CHANNELS where CHANNELCODE=$dicecordCode');
+
+                  String webhook = 'INVALID';
+
+                  for (var row in results) {
+                    webhook = row[0];
+                  }
+
+                  if (webhook != 'INVALID') {
+                    await createGame(
+                        new Game(
+                            gameName: gameName,
+                            hook: webhook,
+                            nickname: nickname,
+                            verbose: verboseMode,
+                            labels: diceLabels,
+                            diceType: diceType
+                        )
+                    );
+                    Navigator.pop(context);
+                    Navigator.popAndPushNamed(context, '/');
+                  } else {
+                    Fluttertoast.showToast(msg: "Please make sure that your Dicecord Code is correct");
+                  }
                 } else {
                   Fluttertoast.showToast(
                       msg: "Please make sure that all fields are filled in."
