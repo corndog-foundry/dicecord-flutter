@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dicecord_mobile/screens/opening_screen.dart';
+import 'dart:io' show Platform;
 
 class MainScreen extends StatefulWidget {
   @override
@@ -773,7 +774,9 @@ class _MainScreenState extends State<MainScreen> {
               List rollResults = rollOutcome[1];
               String header = "$rollLabel = $total";
 
-              Fluttertoast.showToast(msg: header);
+              if (!Platform.isWindows) {
+                Fluttertoast.showToast(msg: header);
+              }
 
               header = "${args.nickname} rolled: $header";
 
@@ -1339,7 +1342,9 @@ class _MainScreenState extends State<MainScreen> {
                 header += " + Threat(${advantage.abs()})";
               }
 
-              Fluttertoast.showToast(msg: header);
+              if (!Platform.isWindows) {
+                Fluttertoast.showToast(msg: header);
+              }
 
               header = "${args.nickname} rolled: $header";
 
@@ -1868,7 +1873,9 @@ class _MainScreenState extends State<MainScreen> {
                 }
               }
 
-              Fluttertoast.showToast(msg: header);
+              if (!Platform.isWindows) {
+                Fluttertoast.showToast(msg: header);
+              }
 
               header = "${args.nickname} rolled: $header";
               header = header.replaceAll('force', ':white_circle:');
@@ -1989,7 +1996,9 @@ class _MainScreenState extends State<MainScreen> {
               List fields = rollOutcome[1];
 
               String header = "$vampireRollLabel = $successes Successes";
-              Fluttertoast.showToast(msg: header);
+              if (!Platform.isWindows) {
+                Fluttertoast.showToast(msg: header);
+              }
 
               header = "${args.nickname} rolled: $header";
               header = header.replaceAll('normal', ':black_circle:');

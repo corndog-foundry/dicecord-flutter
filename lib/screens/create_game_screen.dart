@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:dicecord_mobile/data_classes/database_information.dart';
+import 'dart:io' show Platform;
 
 class CreateGameScreen extends StatefulWidget {
   @override
@@ -294,12 +295,17 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(context, '/');
                     } else {
-                      Fluttertoast.showToast(msg: "Please make sure that your Dicecord Code is correct");
+                      if (!Platform.isWindows) {
+                        Fluttertoast.showToast(
+                            msg: "Please make sure that your Dicecord Code is correct");
+                      }
                     }
                   } else {
-                    Fluttertoast.showToast(
-                        msg: "Please make sure that all fields are filled in."
-                    );
+                    if (!Platform.isWindows) {
+                      Fluttertoast.showToast(
+                          msg: "Please make sure that all fields are filled in."
+                      );
+                    }
                   }
                 }
               )
