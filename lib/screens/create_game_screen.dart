@@ -15,8 +15,8 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
   String gameName = '';
   String dicecordCode = '';
   String nickname = '';
-  bool verboseMode = false;
-  bool diceLabels = false;
+  bool verboseMode = true;
+  bool diceLabels = true;
   String diceType = '';
 
   bool showAdvancedOptions = false;
