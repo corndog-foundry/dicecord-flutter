@@ -37,6 +37,15 @@ class _MainScreenState extends State<MainScreen> {
   int nNormal = 0;
   int nHunger = 0;
 
+  // Holding roll
+  int _holdingRollValue = 0;
+
+  void setHoldingRoll(int newValue) {
+    setState(() {
+      _holdingRollValue = newValue;
+    });
+  }
+
   void calculateRollFormula() {
     String newLabel = '';
 
@@ -815,6 +824,58 @@ class _MainScreenState extends State<MainScreen> {
                         nD4++;
                         calculateRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("D4"),
+                                content: SizedBox(
+                                  height: 88.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many D4s would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of D4s',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nD4 = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/standard-d4.png'),
@@ -836,6 +897,58 @@ class _MainScreenState extends State<MainScreen> {
                         nD6++;
                         calculateRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("D6"),
+                                content: SizedBox(
+                                  height: 88.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many D6s would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of D6s',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nD6 = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/standard-d6.png'),
@@ -857,6 +970,58 @@ class _MainScreenState extends State<MainScreen> {
                         nD8++;
                         calculateRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("D8"),
+                                content: SizedBox(
+                                  height: 88.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many D8s would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of D8s',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nD8 = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/standard-d8.png'),
@@ -883,6 +1048,58 @@ class _MainScreenState extends State<MainScreen> {
                         nD10++;
                         calculateRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("D10"),
+                                content: SizedBox(
+                                  height: 88.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many D10s would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of D10s',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nD10 = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/standard-d10.png'),
@@ -904,6 +1121,58 @@ class _MainScreenState extends State<MainScreen> {
                         nD12++;
                         calculateRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("D12"),
+                                content: SizedBox(
+                                  height: 88.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many D12s would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of D12s',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nD12 = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/standard-d12.png'),
@@ -925,6 +1194,58 @@ class _MainScreenState extends State<MainScreen> {
                         nD20++;
                         calculateRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("D20"),
+                                content: SizedBox(
+                                  height: 88.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many D20s would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of D20s',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nD20 = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/standard-d20.png'),
@@ -1066,6 +1387,58 @@ class _MainScreenState extends State<MainScreen> {
                         nBlue++;
                         calculateSWRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("Boost Dice"),
+                                content: SizedBox(
+                                  height: 107.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many Boost Dice would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of Boost Dice',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nBlue = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateSWRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/starwars-blue.png'),
@@ -1087,6 +1460,58 @@ class _MainScreenState extends State<MainScreen> {
                         nGreen++;
                         calculateSWRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("Ability Dice"),
+                                content: SizedBox(
+                                  height: 107.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many Ability Dice would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of Ability Dice',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nGreen = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateSWRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/starwars-green.png'),
@@ -1108,6 +1533,58 @@ class _MainScreenState extends State<MainScreen> {
                         nYellow++;
                         calculateSWRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("Proficiency Dice"),
+                                content: SizedBox(
+                                  height: 107.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many Proficiency Dice would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of Proficiency Dice',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nYellow = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateSWRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/starwars-yellow.png'),
@@ -1133,6 +1610,58 @@ class _MainScreenState extends State<MainScreen> {
                         nBlack++;
                         calculateSWRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("Setback Dice"),
+                                content: SizedBox(
+                                  height: 107.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many Setback Dice would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of Setback Dice',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nBlack = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateSWRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/starwars-black.png'),
@@ -1154,6 +1683,58 @@ class _MainScreenState extends State<MainScreen> {
                         nPurple++;
                         calculateSWRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("Difficulty Dice"),
+                                content: SizedBox(
+                                  height: 107.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many Difficulty Dice would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of Difficulty Dice',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nPurple = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateSWRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/starwars-purple.png'),
@@ -1175,6 +1756,58 @@ class _MainScreenState extends State<MainScreen> {
                         nRed++;
                         calculateSWRollFormula();
                       }),
+                      onLongPress: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext ctx) {
+                              return AlertDialog(
+                                title: Text("Challenge Dice"),
+                                content: SizedBox(
+                                  height: 107.0,
+                                  child: Column(
+                                    children: [
+                                      Text("How many Challenge Dice would you like to use?"),
+                                      SizedBox(height: 10.0),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Number of Challenge Dice',
+                                        ),
+                                        onChanged: (newValue) {
+                                          setHoldingRoll(int.parse(newValue));
+                                        },
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 64, 64, 64),
+                                            fontSize: 16.0
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Cancel")
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          nRed = _holdingRollValue;
+                                          _holdingRollValue = 0;
+                                        });
+                                        calculateSWRollFormula();
+                                        Navigator.pop(ctx);
+                                      },
+                                      child: Text("Use")
+                                  )
+                                ],
+                              );
+                            }
+                        );
+                      },
                       child: Column(
                         children: [
                           Image.asset('img/starwars-red.png'),
@@ -1260,6 +1893,58 @@ class _MainScreenState extends State<MainScreen> {
                   nForce++;
                   calculateSWForceRollFormula();
                 }),
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext ctx) {
+                        return AlertDialog(
+                          title: Text("Force Dice"),
+                          content: SizedBox(
+                            height: 107.0,
+                            child: Column(
+                              children: [
+                                Text("How many Force Dice would you like to use?"),
+                                SizedBox(height: 10.0),
+                                TextField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Number of Force Dice',
+                                  ),
+                                  onChanged: (newValue) {
+                                    setHoldingRoll(int.parse(newValue));
+                                  },
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 64, 64, 64),
+                                      fontSize: 16.0
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(ctx);
+                                },
+                                child: Text("Cancel")
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    nForce = _holdingRollValue;
+                                    _holdingRollValue = 0;
+                                  });
+                                  calculateSWForceRollFormula();
+                                  Navigator.pop(ctx);
+                                },
+                                child: Text("Use")
+                            )
+                          ],
+                        );
+                      }
+                  );
+                },
                 child: Column(
                   children: [
                     Image.asset('img/starwars-white.png'),
@@ -1336,6 +2021,58 @@ class _MainScreenState extends State<MainScreen> {
                     nNormal++;
                     calculateVampireRollFormula();
                   }),
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext ctx) {
+                          return AlertDialog(
+                            title: Text("Normal Dice"),
+                            content: SizedBox(
+                              height: 107.0,
+                              child: Column(
+                                children: [
+                                  Text("How many Normal Dice would you like to use?"),
+                                  SizedBox(height: 10.0),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Number of Normal Dice',
+                                    ),
+                                    onChanged: (newValue) {
+                                      setHoldingRoll(int.parse(newValue));
+                                    },
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 64, 64, 64),
+                                        fontSize: 16.0
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Cancel")
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      nNormal = _holdingRollValue;
+                                      _holdingRollValue = 0;
+                                    });
+                                    calculateVampireRollFormula();
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Use")
+                              )
+                            ],
+                          );
+                        }
+                    );
+                  },
                   child: Column(
                     children: [
                       Image.asset('img/vampire-black.png'),
@@ -1357,6 +2094,58 @@ class _MainScreenState extends State<MainScreen> {
                     nHunger++;
                     calculateVampireRollFormula();
                   }),
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext ctx) {
+                          return AlertDialog(
+                            title: Text("Hunger Dice"),
+                            content: SizedBox(
+                              height: 107.0,
+                              child: Column(
+                                children: [
+                                  Text("How many Hunger Dice would you like to use?"),
+                                  SizedBox(height: 10.0),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Number of Hunger Dice',
+                                    ),
+                                    onChanged: (newValue) {
+                                      setHoldingRoll(int.parse(newValue));
+                                    },
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 64, 64, 64),
+                                        fontSize: 16.0
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Cancel")
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      nHunger = _holdingRollValue;
+                                      _holdingRollValue = 0;
+                                    });
+                                    calculateVampireRollFormula();
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Use")
+                              )
+                            ],
+                          );
+                        }
+                    );
+                  },
                   child: Column(
                     children: [
                       Image.asset('img/vampire-red.png'),
