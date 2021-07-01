@@ -78,20 +78,29 @@ Touching the game opens up the dice screen depending on which of the dice types 
 
 #### Adding dice
 You can touch the dice symbols to add dice to your roll.
+<ul>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859186197557018624/unknown.png?width=320&height=676"/>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859186463707103232/unknown.png?width=320&height=676"/>
+</ul>
+
 
 #### Adding multiple dice
 You can touch and hold the dice symbols to set the number of dice to use.
+<ul>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859186197557018624/unknown.png?width=320&height=676"/>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859187140919033877/Screenshot_1624916565.png?width=320&height=676"/>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859187384196661288/unknown.png?width=320&height=676"/>
+</ul>
 
 #### Rolling
 Once you've entered the dice you want to roll, simply touch the box containing the roll formula.
+<ul>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859187776598835240/unknown.png?width=320&height=676">
+</ul>
 If you're using an Android device, you should see a toast notification telling you the result of the roll. Regardless of device, Dicecord will post a message in the channel for the game with the results of the roll.
+<ul>
 <img src="https://media.discordapp.net/attachments/824993271423828038/859188153700188160/unknown.png"/>
+</ul>
 
 #### Clearing a Roll
 To clear a roll, simply touch and hold the box containing the roll formula.
