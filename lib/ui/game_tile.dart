@@ -2,6 +2,7 @@ import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
 import 'package:dicecord_mobile/data_classes/argsets/arg_set_pool.dart';
 import 'package:dicecord_mobile/data_classes/argsets/arg_set_sheet.dart';
 import 'package:dicecord_mobile/data_classes/game.dart';
+import 'package:dicecord_mobile/utils/5e_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -42,47 +43,7 @@ class GameTile extends StatelessWidget {
             final box = await Hive.openBox<Character5e>(game.gameName);
 
             if (box.values.toList().length == 0) {
-              Character5e newCharacter = new Character5e(
-                  'New Character',
-                  '',
-                  '',
-                  0,
-                  '',
-                  '',
-
-                  10,
-                  10,
-                  10,
-                  10,
-                  10,
-                  10,
-
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
-                  0
-              );
+              Character5e newCharacter = initialiseCharacter5e();
 
               box.add(newCharacter);
               character = newCharacter;

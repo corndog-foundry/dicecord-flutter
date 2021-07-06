@@ -53,17 +53,20 @@ class Character5eAdapter extends TypeAdapter<Character5e> {
       fields[33] as int,
       fields[34] as int,
       fields[35] as int,
+      fields[36] as int,
+      fields[37] as int,
     )
-      ..racialFeatures = (fields[36] as List)?.cast<Feature5e>()
-      ..backgroundFeatures = (fields[37] as List)?.cast<Feature5e>()
-      ..classFeatures = (fields[38] as List)?.cast<Feature5e>()
-      ..feats = (fields[39] as List)?.cast<Feature5e>();
+      ..racialFeatures = (fields[38] as List)?.cast<Feature5e>()
+      ..backgroundFeatures = (fields[39] as List)?.cast<Feature5e>()
+      ..classFeatures = (fields[40] as List)?.cast<Feature5e>()
+      ..feats = (fields[41] as List)?.cast<Feature5e>()
+      ..attacks = (fields[42] as List)?.cast<Attack5e>();
   }
 
   @override
   void write(BinaryWriter writer, Character5e obj) {
     writer
-      ..writeByte(40)
+      ..writeByte(43)
       ..writeByte(0)
       ..write(obj.characterName)
       ..writeByte(1)
@@ -137,13 +140,19 @@ class Character5eAdapter extends TypeAdapter<Character5e> {
       ..writeByte(35)
       ..write(obj.survivalProficiency)
       ..writeByte(36)
-      ..write(obj.racialFeatures)
+      ..write(obj.currentHitPoints)
       ..writeByte(37)
-      ..write(obj.backgroundFeatures)
+      ..write(obj.maximumHitPoints)
       ..writeByte(38)
-      ..write(obj.classFeatures)
+      ..write(obj.racialFeatures)
       ..writeByte(39)
-      ..write(obj.feats);
+      ..write(obj.backgroundFeatures)
+      ..writeByte(40)
+      ..write(obj.classFeatures)
+      ..writeByte(41)
+      ..write(obj.feats)
+      ..writeByte(42)
+      ..write(obj.attacks);
   }
 
   @override

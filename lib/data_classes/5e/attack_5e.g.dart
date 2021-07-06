@@ -1,44 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'feature_5e.dart';
+part of 'attack_5e.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class Feature5eAdapter extends TypeAdapter<Feature5e> {
+class Attack5eAdapter extends TypeAdapter<Attack5e> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  Feature5e read(BinaryReader reader) {
+  Attack5e read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Feature5e(
+    return Attack5e(
       name: fields[0] as String,
-      source: fields[1] as String,
-      description: fields[2] as String,
-      hasResources: fields[3] as bool,
-      resourceCount: fields[4] as int,
+      attackBonus: fields[1] as int,
+      nDamageDice: fields[2] as int,
+      damageDiceType: fields[3] as int,
+      damageBonus: fields[4] as int,
+      damageType: fields[5] as String,
+      traits: fields[6] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Feature5e obj) {
+  void write(BinaryWriter writer, Attack5e obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.source)
+      ..write(obj.attackBonus)
       ..writeByte(2)
-      ..write(obj.description)
+      ..write(obj.nDamageDice)
       ..writeByte(3)
-      ..write(obj.hasResources)
+      ..write(obj.damageDiceType)
       ..writeByte(4)
-      ..write(obj.resourceCount);
+      ..write(obj.damageBonus)
+      ..writeByte(5)
+      ..write(obj.damageType)
+      ..writeByte(6)
+      ..write(obj.traits);
   }
 
   @override
@@ -47,7 +53,7 @@ class Feature5eAdapter extends TypeAdapter<Feature5e> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Feature5eAdapter &&
+      other is Attack5eAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

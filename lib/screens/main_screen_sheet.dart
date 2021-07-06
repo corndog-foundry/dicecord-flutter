@@ -16,26 +16,40 @@ class _MainScreenSheetState extends State<MainScreenSheet> {
     );
   }
 
+  List<BottomNavigationBarItem> getTabs() {
+    return [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person_outline),
+        label: "Character"
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.check),
+          label: "Saving Throws"
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.check),
+          label: "Skills"
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.check),
+          label: "Features"
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.check),
+          label: "Attacks"
+      ),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.check),
+          label: "Spells"
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final ArgSetSheet args = ModalRoute.of(context).settings.arguments as ArgSetSheet;
+    final List<BottomNavigationBarItem> tabs = getTabs();
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(args.gameName),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Standard Dice
-              SizedBox(
-                height: 20.0,
-              ),
-              getSheet(args),
-            ],
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-          ),
-        )
-    );
+    return getSheet(args);
   }
 }

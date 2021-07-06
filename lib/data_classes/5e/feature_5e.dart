@@ -10,10 +10,16 @@ class Feature5e {
   final String source;
   @HiveField(2)
   final String description;
+  @HiveField(3)
+  final bool hasResources;
+  @HiveField(4)
+  final int resourceCount;
 
   Feature5e({
     this.name,
     this.source,
-    this.description
+    this.description,
+    this.hasResources,
+    this.resourceCount
   });
 }

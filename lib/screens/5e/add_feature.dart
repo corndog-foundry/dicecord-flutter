@@ -15,6 +15,8 @@ class _AddFeature5eState extends State<AddFeature5e> {
   String featureName;
   String featureSource = '';
   String featureDescription;
+  bool hasResourceCount = false;
+  int resourceCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -118,13 +120,66 @@ class _AddFeature5eState extends State<AddFeature5e> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "Does this feature have a use count?",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 221, 246, 254),
+                ),
+              ),
+            ),
+            Checkbox(
+              value: hasResourceCount,
+              onChanged: (newValue) {
+                setState(() {
+                  hasResourceCount = newValue;
+                });
+              }
+            ),
+            Visibility(
+              visible: hasResourceCount,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "How many times can you use the feature?",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 221, 246, 254),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Use Count',
+                        ),
+                        onChanged: (newValue) {
+                          setState(() {
+                            resourceCount = int.parse(newValue);
+                          });
+                        }
+                    ),
+                  ),
+                ],
+              )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: MaterialButton(
                 child: Text("Add Feature"),
                 onPressed: () {
+                  if (!hasResourceCount) {
+                    resourceCount = 0;
+                  }
+
                   Feature5e newFeature = new Feature5e(
                     name: featureName,
                     source: featureSource,
-                    description: featureDescription
+                    description: featureDescription,
+                    hasResources: hasResourceCount,
+                    resourceCount: resourceCount
                   );
 
                   Character5e character = args.character;

@@ -1,4 +1,5 @@
 import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
+import 'package:dicecord_mobile/data_classes/5e/attack_5e.dart';
 import 'package:hive/hive.dart';
 
 part 'character_5e.g.dart';
@@ -82,13 +83,20 @@ class Character5e {
    int survivalProficiency;
 
   @HiveField(36)
-  List<Feature5e> racialFeatures = [];
+  int currentHitPoints;
   @HiveField(37)
-  List<Feature5e> backgroundFeatures = [];
+  int maximumHitPoints;
+
   @HiveField(38)
-  List<Feature5e> classFeatures = [];
+  List<Feature5e> racialFeatures = [];
   @HiveField(39)
+  List<Feature5e> backgroundFeatures = [];
+  @HiveField(40)
+  List<Feature5e> classFeatures = [];
+  @HiveField(41)
   List<Feature5e> feats = [];
+  @HiveField(42)
+  List<Attack5e> attacks = [];
 
   Character5e(
       this.characterName,
@@ -130,6 +138,9 @@ class Character5e {
       this.sleightOfHandProficiency,
       this.stealthProficiency,
       this.survivalProficiency,
+
+      this.currentHitPoints,
+      this.maximumHitPoints
   );
 
   addFeature(Feature5e newFeature) {
@@ -151,5 +162,9 @@ class Character5e {
         feats.add(newFeature);
         break;
     }
+  }
+
+  addAttack(Attack5e newWeapon) {
+    attacks.add(newWeapon);
   }
 }
