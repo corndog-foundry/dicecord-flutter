@@ -1,5 +1,6 @@
 import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
 import 'package:dicecord_mobile/data_classes/5e/attack_5e.dart';
+import 'package:dicecord_mobile/data_classes/5e/spell_5e.dart';
 import 'package:hive/hive.dart';
 
 part 'character_5e.g.dart';
@@ -97,6 +98,21 @@ class Character5e {
   List<Feature5e> feats = [];
   @HiveField(42)
   List<Attack5e> attacks = [];
+  @HiveField(43)
+  List spells = [
+    [], // Cantrips
+    [], // First
+    [], // Second
+    [], // Third
+    [], // Fourth
+    [], // Fifth
+    [], // Sixth
+    [], // Seventh
+    [], // Eighth
+    []  // Ninth
+  ];
+  @HiveField(44)
+  int armorClass = 10;
 
   Character5e(
       this.characterName,
@@ -140,7 +156,8 @@ class Character5e {
       this.survivalProficiency,
 
       this.currentHitPoints,
-      this.maximumHitPoints
+      this.maximumHitPoints,
+      this.armorClass
   );
 
   addFeature(Feature5e newFeature) {
@@ -166,5 +183,9 @@ class Character5e {
 
   addAttack(Attack5e newWeapon) {
     attacks.add(newWeapon);
+  }
+
+  addSpell(Spell5e newSpell) {
+    spells[newSpell.spellLevel].add(newSpell);
   }
 }

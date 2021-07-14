@@ -3,6 +3,7 @@ import 'package:dicecord_mobile/data_classes/argsets/arg_set_sheet.dart';
 import 'package:dicecord_mobile/methods/methods_5e.dart';
 import 'package:dicecord_mobile/ui/5e/attack_tile.dart';
 import 'package:dicecord_mobile/ui/5e/feature_tile.dart';
+import 'package:dicecord_mobile/ui/5e/spell_level_display.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -242,6 +243,20 @@ class _DND5ESheetState extends State<DND5ESheet> {
                   Text(character.maximumHitPoints.toString(), style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 221, 246, 254),),),
                   SizedBox(width: 50.0,),
                   Icon(LineIcons.heartAlt, size: 50.0, color: Color.fromARGB(255, 221, 246, 254),)
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              ),
+
+              SizedBox(height: 10.0,),
+              Divider(
+                thickness: 5.0,
+              ),
+              SizedBox(height: 10.0,),
+
+              Row(
+                children: [
+                  Icon(LineIcons.alternateShield, size: 50.0, color: Color.fromARGB(255, 221, 246, 254),),
+                  Text(character.armorClass.toString(), style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 221, 246, 254),),),
                 ],
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               ),
@@ -1112,9 +1127,97 @@ class _DND5ESheetState extends State<DND5ESheet> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text("I haven't added Spellcasting yet. Whoops. That's coming soon."),
-              Icon(LineIcons.wizardSHat, size: 120.0,)
+              MaterialButton(
+                child: Text("Add a Spell"),
+                onPressed: () => Navigator.pushNamed(
+                    context,
+                    '/5e/addspell',
+                    arguments: args
+                ).then((value) => setState(() {
+                  character = value;
+                })),
+                height: 28.0,
+                minWidth: 84.0,
+                color: Color.fromARGB(255, 221, 246, 254),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SpellLevelDisplay(
+                      label: "Cantrips",
+                      spells: character.spells.elementAt(0),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "First Level Spells",
+                      spells: character.spells.elementAt(1),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Second Level Spells",
+                      spells: character.spells.elementAt(2),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Third Level Spells",
+                      spells: character.spells.elementAt(3),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Fourth Level Spells",
+                      spells: character.spells.elementAt(4),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Fifth Level Spells",
+                      spells: character.spells.elementAt(5),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Sixth Level Spells",
+                      spells: character.spells.elementAt(6),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Seventh Level Spells",
+                      spells: character.spells.elementAt(7),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Eighth Level Spells",
+                      spells: character.spells.elementAt(8),
+                      args: args,
+                      character: character,
+                      numberSpells: 8,
+                    ),
+                    SpellLevelDisplay(
+                      label: "Ninth Level Spells",
+                      spells: character.spells.elementAt(9),
+                      args: args,
+                      character: character,
+                      numberSpells: 5,
+                    ),
+                  ],
+                ),
+              ),
             ],
+            mainAxisAlignment: MainAxisAlignment.start,
           ),
         ),
       ),

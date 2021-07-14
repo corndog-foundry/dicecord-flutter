@@ -1,13 +1,8 @@
-import 'dart:math';
-
 import 'package:dicecord_mobile/data_classes/5e/attack_5e.dart';
 import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
-import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
 import 'package:dicecord_mobile/data_classes/argsets/arg_set_sheet.dart';
-import 'package:dicecord_mobile/methods/generic_methods.dart';
 import 'package:dicecord_mobile/methods/methods_5e.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class AttackTile5e extends StatefulWidget {
   const AttackTile5e({Key key, this.attack, this.args, this.character}) : super(key: key);

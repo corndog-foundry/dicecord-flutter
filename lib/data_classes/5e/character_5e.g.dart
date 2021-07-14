@@ -55,18 +55,20 @@ class Character5eAdapter extends TypeAdapter<Character5e> {
       fields[35] as int,
       fields[36] as int,
       fields[37] as int,
+      fields[44] as int,
     )
       ..racialFeatures = (fields[38] as List)?.cast<Feature5e>()
       ..backgroundFeatures = (fields[39] as List)?.cast<Feature5e>()
       ..classFeatures = (fields[40] as List)?.cast<Feature5e>()
       ..feats = (fields[41] as List)?.cast<Feature5e>()
-      ..attacks = (fields[42] as List)?.cast<Attack5e>();
+      ..attacks = (fields[42] as List)?.cast<Attack5e>()
+      ..spells = (fields[43] as List)?.cast<dynamic>();
   }
 
   @override
   void write(BinaryWriter writer, Character5e obj) {
     writer
-      ..writeByte(43)
+      ..writeByte(45)
       ..writeByte(0)
       ..write(obj.characterName)
       ..writeByte(1)
@@ -152,7 +154,11 @@ class Character5eAdapter extends TypeAdapter<Character5e> {
       ..writeByte(41)
       ..write(obj.feats)
       ..writeByte(42)
-      ..write(obj.attacks);
+      ..write(obj.attacks)
+      ..writeByte(43)
+      ..write(obj.spells)
+      ..writeByte(44)
+      ..write(obj.armorClass);
   }
 
   @override

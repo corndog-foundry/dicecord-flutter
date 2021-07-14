@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
 import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
 import 'package:dicecord_mobile/data_classes/5e/attack_5e.dart';
+import 'package:dicecord_mobile/data_classes/5e/spell_5e.dart';
 import 'package:dicecord_mobile/data_classes/game.dart';
 import 'package:dicecord_mobile/screens/5e/add_attack.dart';
 import 'package:dicecord_mobile/screens/5e/add_feature.dart';
+import 'package:dicecord_mobile/screens/5e/add_spell.dart';
 import 'package:dicecord_mobile/screens/5e/edit_character.dart';
 import 'package:dicecord_mobile/screens/create_game_screen.dart';
 import 'package:dicecord_mobile/screens/games_screen.dart';
@@ -27,6 +29,7 @@ Future<void> main() async {
   Hive.registerAdapter(Character5eAdapter());
   Hive.registerAdapter(Feature5eAdapter());
   Hive.registerAdapter(Attack5eAdapter());
+  Hive.registerAdapter(Spell5eAdapter());
 
   runApp(DicecordApp());
 }
@@ -42,9 +45,10 @@ class DicecordApp extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 31, 40, 59),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: Color.fromARGB(255, 11, 20, 39),
-          selectedItemColor: Color.fromARGB(255, 71, 80, 99),
-          unselectedItemColor: Color.fromARGB(255, 31, 40, 59),
-        )
+          selectedItemColor: Color.fromARGB(255, 171, 180, 199),
+          unselectedItemColor: Color.fromARGB(255, 151, 160, 179),
+        ),
+        canvasColor: Color.fromARGB(255, 71, 80, 99),
 
       ),
       initialRoute: '/',
@@ -58,7 +62,8 @@ class DicecordApp extends StatelessWidget {
           // 5e Routes
           '/5e/addfeature': (context) => AddFeature5e(),
           '/5e/editcharacter': (context) => EditCharacter5e(),
-          '/5e/addattack': (context) => AddAttack5e()
+          '/5e/addattack': (context) => AddAttack5e(),
+          '/5e/addspell': (context) => AddSpell5e()
         }
     );
   }

@@ -144,7 +144,9 @@ class _AddAttack5eState extends State<AddAttack5e> {
                               value: 20,
                             ),
                           ],
-                        hint: Text("d$diceType"),
+                        hint: Text("d$diceType", style: TextStyle(
+                          color: Color.fromARGB(255, 221, 246, 254),
+                        ),),
                         onChanged: (newValue) {
                             setState(() {
                               diceType = newValue;
@@ -240,7 +242,9 @@ class _AddAttack5eState extends State<AddAttack5e> {
                       damageType = newValue;
                     });
                   },
-                  hint: Text(damageType),
+                  hint: Text(damageType, style: TextStyle(
+                    color: Color.fromARGB(255, 221, 246, 254),
+                  ),),
                 )
               ),
               Padding(

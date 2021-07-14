@@ -57,6 +57,7 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
   String newSurvivalProficiency = "Not Proficient";
 
   int newMaximumHitPoints = 0;
+  int newArmorClass = 0;
 
   List<String> proficiencyLabels = [
     "Not Proficient",
@@ -67,19 +68,27 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
 
   List<DropdownMenuItem> proficiencyValues = [
     DropdownMenuItem(
-      child: Text("Not Proficient"),
+      child: Text("Not Proficient", style: TextStyle(
+        color: Color.fromARGB(255, 221, 246, 254),
+      ),),
       value: "Not Proficient",
     ),
     DropdownMenuItem(
-      child: Text("Jack of All Trades"),
+      child: Text("Jack of All Trades", style: TextStyle(
+        color: Color.fromARGB(255, 221, 246, 254),
+      ),),
       value: "Jack of All Trades",
     ),
     DropdownMenuItem(
-      child: Text("Proficient"),
+      child: Text("Proficient", style: TextStyle(
+        color: Color.fromARGB(255, 221, 246, 254),
+      ),),
       value: "Proficient",
     ),
     DropdownMenuItem(
-      child: Text("Expertise"),
+      child: Text("Expertise", style: TextStyle(
+        color: Color.fromARGB(255, 221, 246, 254),
+      ),),
       value: "Expertise",
     ),
   ];
@@ -246,6 +255,29 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
             onChanged: (newValue) {
               setState(() {
                 newMaximumHitPoints = int.parse(newValue);
+              });
+            },
+            style: TextStyle(
+              color: Color.fromARGB(255, 221, 246, 254),
+            ),
+            textAlign: TextAlign.center,
+          ),
+
+          Text("Armor Class", style: TextStyle(
+            color: Color.fromARGB(255, 221, 246, 254),
+          ),),
+          TextFormField(
+            key: Key('ac'),
+            initialValue: newArmorClass.toString(),
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Armor Class',
+
+            ),
+            onChanged: (newValue) {
+              setState(() {
+                newArmorClass = int.parse(newValue);
               });
             },
             style: TextStyle(
@@ -825,6 +857,7 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
       newSurvivalProficiency = proficiencyLabels[character.survivalProficiency];
 
       newMaximumHitPoints = character.maximumHitPoints;
+      newArmorClass = character.armorClass;
     });
   }
 
@@ -920,6 +953,7 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
                                 character.survivalProficiency = getProficiencyValue(newSurvivalProficiency);
 
                                 character.maximumHitPoints = newMaximumHitPoints;
+                                character.armorClass = newArmorClass;
 
                                 Navigator.pop(context, character);
                               },

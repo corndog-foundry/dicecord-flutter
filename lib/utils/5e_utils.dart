@@ -42,6 +42,7 @@ Character5e initialiseCharacter5e () {
     0,
     0,
     10,
+    10,
     10
   );
 }
