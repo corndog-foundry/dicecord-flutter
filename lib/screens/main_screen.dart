@@ -1,9 +1,10 @@
+import 'package:dicecord_mobile/data_classes/argsets/arg_set_pool.dart';
+import 'package:dicecord_mobile/methods/generic_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:dicecord_mobile/screens/opening_screen.dart';
 import 'dart:io' show Platform;
 
 class MainScreen extends StatefulWidget {
@@ -739,18 +740,7 @@ class _MainScreenState extends State<MainScreen> {
 
   }
 
-  Map buildPayload(String payloadHeader, List fields) {
-    return {
-      "embeds": [
-        {
-          "title": payloadHeader,
-          "fields": fields
-        }
-      ]
-    };
-  }
-
-  Widget getDiceSet(OpeningScreenArgs args) {
+  Widget getDiceSet(ArgSetPool args) {
     if (args.diceType == "Standard Dice") {
       return Column(
         children: [
@@ -789,12 +779,7 @@ class _MainScreenState extends State<MainScreen> {
                 });
               }
 
-              var payload = json.encode(buildPayload(header, fields));
-              var url = Uri.parse(args.webhookURL);
-              http.post(url, body: payload, headers: {
-                "Content-Type": "application/json"
-              });
-
+              GenericMethods.buildAndPushPayload(header, fields, args.webhookURL);
 
               nD4 = 0;
               nD6 = 0;
@@ -1355,13 +1340,7 @@ class _MainScreenState extends State<MainScreen> {
               header = header.replaceAll('proficiency', ':yellow_circle:');
               header = header.replaceAll('challenge', ':red_circle:');
 
-              var payload = json.encode(buildPayload(header, rollOutcome[2]));
-
-              var url = Uri.parse(args.webhookURL);
-              http.post(url, body: payload, headers: {
-                "Content-Type": "application/json"
-              });
-
+              GenericMethods.buildAndPushPayload(header, rollOutcome[2], args.webhookURL);
 
               nBlue = 0;
               nBlack = 0;
@@ -1880,14 +1859,7 @@ class _MainScreenState extends State<MainScreen> {
               header = "${args.nickname} rolled: $header";
               header = header.replaceAll('force', ':white_circle:');
 
-
-              var payload = json.encode(buildPayload(header, rollOutcome[2]));
-
-              var url = Uri.parse(args.webhookURL);
-              http.post(url, body: payload, headers: {
-                "Content-Type": "application/json"
-              });
-
+              GenericMethods.buildAndPushPayload(header, rollOutcome[2], args.webhookURL);
 
               nForce = 0;
 
@@ -1972,7 +1944,6 @@ class _MainScreenState extends State<MainScreen> {
         ],
       );
     }
-
     else if (args.diceType == 'Vampire the Masquerade 5e') {
       return Column(
         children: [
@@ -2004,12 +1975,7 @@ class _MainScreenState extends State<MainScreen> {
               header = header.replaceAll('normal', ':black_circle:');
               header = header.replaceAll('hunger', ':red_circle:');
 
-              var payload = json.encode(buildPayload(header, fields));
-              print(payload);
-              var url = Uri.parse(args.webhookURL);
-              http.post(url, body: payload, headers: {
-                "Content-Type": "application/json"
-              });
+              GenericMethods.buildAndPushPayload(header, fields, args.webhookURL);
 
               nNormal = 0;
               nHunger = 0;
@@ -2181,7 +2147,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final OpeningScreenArgs args = ModalRoute.of(context).settings.arguments as OpeningScreenArgs;
+    final ArgSetPool args = ModalRoute.of(context).settings.arguments as ArgSetPool;
 
     return Scaffold(
         appBar: AppBar(
