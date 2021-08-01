@@ -8,6 +8,7 @@ import 'package:dicecord_mobile/data_classes/game.dart';
 import 'package:dicecord_mobile/screens/5e/add_attack.dart';
 import 'package:dicecord_mobile/screens/5e/add_feature.dart';
 import 'package:dicecord_mobile/screens/5e/add_spell.dart';
+import 'package:dicecord_mobile/screens/5e/custom_dice.dart';
 import 'package:dicecord_mobile/screens/5e/edit_character.dart';
 import 'package:dicecord_mobile/screens/create_game_screen.dart';
 import 'package:dicecord_mobile/screens/games_screen.dart';
@@ -63,7 +64,8 @@ class DicecordApp extends StatelessWidget {
           '/5e/addfeature': (context) => AddFeature5e(),
           '/5e/editcharacter': (context) => EditCharacter5e(),
           '/5e/addattack': (context) => AddAttack5e(),
-          '/5e/addspell': (context) => AddSpell5e()
+          '/5e/addspell': (context) => AddSpell5e(),
+          '/5e/custom': (context) => CustomDice5e()
         }
     );
   }

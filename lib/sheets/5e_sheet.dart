@@ -1226,6 +1226,17 @@ class _DND5ESheetState extends State<DND5ESheet> {
     return Scaffold(
       appBar: AppBar(
         title: Text(args.gameName),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                  context,
+                  '/5e/custom',
+                  arguments: args
+              );
+            },
+            icon: Icon(LineIcons.diceD20))
+        ],
       ),
       body: Center(
         child: tabContents.elementAt(currentTab),
