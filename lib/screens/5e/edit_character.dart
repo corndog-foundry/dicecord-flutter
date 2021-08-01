@@ -1,8 +1,10 @@
 import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
+import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
 import 'package:dicecord_mobile/data_classes/argsets/arg_set_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class EditCharacter5e extends StatefulWidget {
   const EditCharacter5e({Key key}) : super(key: key);
@@ -65,6 +67,8 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
     "Proficient",
     "Expertise"
   ];
+
+  String dndBeyondCharacterLink = '';
 
   List<DropdownMenuItem> proficiencyValues = [
     DropdownMenuItem(
@@ -810,6 +814,38 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
           ),
         ];
         break;
+
+      case 4:
+        return [
+          Text("Please input a link to a D&D Beyond character sheet. For example:", style: TextStyle(
+            color: Color.fromARGB(255, 221, 246, 254),
+          )),
+          SizedBox(height: 15.0,),
+          Text("https://www.dndbeyond.com/profile/USERNAME/characters/CHARACTER_ID", style: TextStyle(
+            color: Color.fromARGB(255, 221, 246, 254),
+            fontWeight: FontWeight.bold
+          )),
+          SizedBox(height: 15.0,),
+          TextFormField(
+            key: Key('dndBeyondCharacterLink'),
+            initialValue: dndBeyondCharacterLink,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'D&D Beyond Character Link',
+            ),
+            onChanged: (newValue) {
+              setState(() {
+                dndBeyondCharacterLink = newValue;
+              });
+            },
+            style: TextStyle(
+              color: Color.fromARGB(255, 221, 246, 254),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 15.0,),
+        ];
+        break;
     }
   }
 
@@ -961,7 +997,67 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
                               minWidth: 84.0,
                               color: Color.fromARGB(255, 221, 246, 254),
                             )
-                        )
+                        ),
+                        Visibility(
+                            visible: stage == 4,
+                            child: MaterialButton(
+                              onPressed: () async {
+                                String characterId = dndBeyondCharacterLink.split('/').last;
+                                String requestUrl = "https://character-service.dndbeyond.com/character/v4/character/$characterId";
+
+                                var url = Uri.parse(requestUrl);
+                                var response = await http.get(url);
+
+                                if (response.statusCode == 200) {
+                                  Map characterData = json.decode(response.body)['data'];
+                                  character.characterName = characterData['name'];
+                                  character.maximumHitPoints = characterData['baseHitPoints'];
+                                  character.currentHitPoints = characterData['baseHitPoints'];
+
+                                  character.strengthScore = characterData['stats'][0]['value'];
+                                  character.dexterityScore = characterData['stats'][1]['value'];
+                                  character.constitutionScore = characterData['stats'][2]['value'];
+                                  character.intelligenceScore = characterData['stats'][3]['value'];
+                                  character.wisdomScore = characterData['stats'][4]['value'];
+                                  character.charismaScore = characterData['stats'][5]['value'];
+
+                                  character.characterBackground = characterData['background']['definition']['name'];
+                                  character.backgroundFeatures = [];
+                                  character.addFeature(Feature5e(
+                                    name: characterData['background']['definition']['featureName'],
+                                    source: 'Background Feature',
+                                    description: characterData['background']['definition']['featureDescription'],
+                                    hasResources: false,
+                                    resourceCount: 0
+                                  ));
+
+                                  character.characterRace = characterData['race']['fullName'];
+                                  character.racialFeatures = [];
+                                  for (int i = 0; i < characterData['race']['racialTraits'].length; i++) {
+                                    if (!characterData['race']['racialTraits'][i]['definition']['hideInSheet']) {
+                                      character.addFeature(Feature5e(
+                                        name: characterData['race']['racialTraits'][i]['definition']['name'],
+                                        source: "Racial Feature",
+                                        description: characterData['race']['racialTraits'][i]['definition']['snippet'],
+                                        hasResources: false,
+                                        resourceCount: 0
+                                      ));
+                                    }
+                                  }
+
+
+                                  Navigator.pop(context, character);
+                                } else {
+                                  Fluttertoast.showToast(msg: "There was an error. Check you have the correct link.");
+                                }
+
+                              },
+                              child: Text("Import Character"),
+                              height: 28.0,
+                              minWidth: 84.0,
+                              color: Color.fromARGB(255, 221, 246, 254),
+                            )
+                        ),
                       ],
                     ),
                   visible: characterEditVisible,
@@ -982,12 +1078,15 @@ class _EditCharacter5eState extends State<EditCharacter5e> {
                         },
                       ),
                       MaterialButton(
-                        child: Text("Import from D&D Beyond (Coming Soon)"),
+                        child: Text("Import from D&D Beyond"),
                         height: 28.0,
                         minWidth: 84.0,
-                        color: Color.fromARGB(255, 128, 128, 128),
+                        color: Color.fromARGB(255, 221, 246, 254),
                         onPressed: () {
-                          Fluttertoast.showToast(msg: "D&D Beyond Integration coming soon!");
+                          setState(() {
+                            stage = 4;
+                            characterEditVisible = true;
+                          });
                         },
                       ),
                     ],
