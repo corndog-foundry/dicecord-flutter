@@ -199,7 +199,11 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                 DropdownMenuItem(
                   child: Text("Sheet: D&D 5th Edition"),
                   value: "D&D 5th Edition",
-                )
+                ),
+                DropdownMenuItem(
+                  child: Text("Sheet: Pathfinder 2nd Edition"),
+                  value: "Pathfinder 2nd Edition",
+                ),
                 ],
                 onChanged: (val) {
                   setState(() {
