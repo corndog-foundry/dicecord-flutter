@@ -193,6 +193,10 @@ class _CreateGameScreenState extends State<CreateGameScreen> {
                   value: "Vampire the Masquerade 5e",
                 ),
                 DropdownMenuItem(
+                  child: Text("Pool: SHIVER"),
+                  value: "SHIVER",
+                ),
+                DropdownMenuItem(
                   child: Text("Sheet: D&D 5th Edition"),
                   value: "D&D 5th Edition",
                 )
