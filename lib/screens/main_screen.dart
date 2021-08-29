@@ -39,6 +39,11 @@ class _MainScreenState extends State<MainScreen> {
   int nNormal = 0;
   int nHunger = 0;
 
+  // Shiver rolls
+  String shiverRollLabel = '';
+  int nSkill = 0;
+  int nTalent = 0;
+
   // Holding roll
   int _holdingRollValue = 0;
 
@@ -186,6 +191,24 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     vampireRollLabel = newLabel;
+  }
+
+  void calculateShiverRollFormula() {
+    String newLabel = '';
+
+    if (nSkill > 0) {
+      newLabel += "$nSkill skill";
+    }
+
+    if (nTalent > 0) {
+      if (nSkill > 0) {
+        newLabel += " + $nTalent talent";
+      } else {
+        newLabel += "$nTalent talent";
+      }
+    }
+
+    shiverRollLabel = newLabel;
   }
 
   List roll() {
@@ -737,6 +760,120 @@ class _MainScreenState extends State<MainScreen> {
     successes += criticals;
 
     return [successes, fields];
+
+  }
+
+  List rollShiver (bool verbose) {
+    Random rng = new Random();
+    Map<String, int> rolls = {
+      'Strange': 0,
+      'Grit': 0,
+      'Wit': 0,
+      'Heart': 0,
+      'Smarts': 0,
+      'Luck': 0,
+      'Talent': 0
+    };
+    int roll;
+
+    for (var i = 0; i < nSkill; i++) {
+      roll = 1 + rng.nextInt(6);
+
+      switch (roll) {
+        case 1:
+          rolls['Strange']++;
+          break;
+
+        case 2:
+          rolls['Grit']++;
+          break;
+
+        case 3:
+          rolls['Wit']++;
+          break;
+
+        case 4:
+          rolls['Heart']++;
+          break;
+
+        case 5:
+          rolls['Smarts']++;
+          break;
+
+        case 6:
+          rolls['Luck']++;
+          break;
+      }
+    }
+
+    for (var i = 0; i < nTalent; i++) {
+      roll = 1 + rng.nextInt(8);
+
+      switch(roll) {
+        case 1:
+          rolls['Strange'] += 2;
+          break;
+
+        case 2:
+        case 3:
+          rolls['Strange']++;
+          break;
+
+        case 4:
+        case 5:
+        case 6:
+          rolls['Talent']++;
+          break;
+
+        case 7:
+        case 8:
+          rolls['Talent'] += 2;
+          break;
+      }
+    }
+
+    List fields = [];
+
+    String results = "${rolls["Strange"]} :purple_circle:";
+    results += " + ${rolls["Grit"] + rolls["Talent"]} :orange_circle:";
+    results += " + ${rolls["Wit"] + rolls["Talent"]} :blue_circle:";
+    results += " + ${rolls["Heart"] + rolls["Talent"]} :red_circle:";
+    results += " + ${rolls["Smarts"] + rolls["Talent"]} :yellow_circle:";
+    results += " + ${rolls["Luck"] + rolls["Talent"]} :green_circle:";
+
+    if (verbose) {
+      fields.add({
+        "name": "Strange",
+        "value": rolls["Strange"]
+      });
+
+      fields.add({
+        "name": "Grit",
+        "value": rolls["Grit"] + rolls["Talent"]
+      });
+
+      fields.add({
+        "name": "Wit",
+        "value": rolls["Wit"] + rolls["Talent"]
+      });
+
+      fields.add({
+        "name": "Heart",
+        "value": rolls["Heart"] + rolls["Talent"]
+      });
+
+      fields.add({
+        "name": "Smarts",
+        "value": rolls["Smarts"] + rolls["Talent"]
+      });
+
+      fields.add({
+        "name": "Luck",
+        "value": rolls["Luck"] + rolls["Talent"]
+      });
+    }
+
+    return [results, fields];
 
   }
 
@@ -2128,6 +2265,200 @@ class _MainScreenState extends State<MainScreen> {
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
                           args.diceLabels ? 'Hunger' : '',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 221, 246, 254),
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          ),
+        ],
+      );
+    }
+    else if (args.diceType == 'SHIVER') {
+      return Column(
+        children: [
+          TextButton(
+            child: Container(
+              child: Center(
+                child: Text(
+                  shiverRollLabel,
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 188, 246, 254)
+                  ),
+                ),
+              ),
+              color: Color.fromARGB(255, 20, 28, 47),
+              width: MediaQuery.of(context).size.width - 20,
+              height: 50,
+            ),
+            onPressed: () => setState(() {
+              List rollOutcome = rollShiver(args.verboseMode);
+              String result = rollOutcome[0];
+              List fields = rollOutcome[1];
+
+              String header = "$shiverRollLabel = $result";
+
+              header = "${args.nickname} rolled: $header";
+
+              GenericMethods.buildAndPushPayload(header, fields, args.webhookURL);
+
+              nSkill = 0;
+              nTalent = 0;
+
+              calculateShiverRollFormula();
+            }),
+            onLongPress: () => setState(() {
+              nSkill = 0;
+              nTalent = 0;
+
+              calculateShiverRollFormula();
+            }),
+          ),
+          Row(
+            children: [
+              FlatButton(
+                  onPressed: () => setState(() {
+                    nSkill++;
+                    calculateShiverRollFormula();
+                  }),
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext ctx) {
+                          return AlertDialog(
+                            title: Text("Skill Dice"),
+                            content: SizedBox(
+                              height: 107.0,
+                              child: Column(
+                                children: [
+                                  Text("How many Skill Dice would you like to use?"),
+                                  SizedBox(height: 10.0),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Number of Skill Dice',
+                                    ),
+                                    onChanged: (newValue) {
+                                      setHoldingRoll(int.parse(newValue));
+                                    },
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 64, 64, 64),
+                                        fontSize: 16.0
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Cancel")
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      nNormal = _holdingRollValue;
+                                      _holdingRollValue = 0;
+                                    });
+                                    calculateVampireRollFormula();
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Use")
+                              )
+                            ],
+                          );
+                        }
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('img/shiver-skill.png'),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          args.diceLabels ? 'Skill' : '',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 221, 246, 254),
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+              ),
+              FlatButton(
+                  onPressed: () => setState(() {
+                    nTalent++;
+                    calculateShiverRollFormula();
+                  }),
+                  onLongPress: () {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext ctx) {
+                          return AlertDialog(
+                            title: Text("Hunger Dice"),
+                            content: SizedBox(
+                              height: 107.0,
+                              child: Column(
+                                children: [
+                                  Text("How many Hunger Dice would you like to use?"),
+                                  SizedBox(height: 10.0),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      hintText: 'Number of Hunger Dice',
+                                    ),
+                                    onChanged: (newValue) {
+                                      setHoldingRoll(int.parse(newValue));
+                                    },
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 64, 64, 64),
+                                        fontSize: 16.0
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Cancel")
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      nHunger = _holdingRollValue;
+                                      _holdingRollValue = 0;
+                                    });
+                                    calculateVampireRollFormula();
+                                    Navigator.pop(ctx);
+                                  },
+                                  child: Text("Use")
+                              )
+                            ],
+                          );
+                        }
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Image.asset('img/shiver-talent.png'),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          args.diceLabels ? 'Talent' : '',
                           style: TextStyle(
                             color: Color.fromARGB(255, 221, 246, 254),
                             fontSize: 16.0,

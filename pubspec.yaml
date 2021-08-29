@@ -76,6 +76,8 @@ flutter:
     - img/starwars-white.png
     - img/vampire-black.png
     - img/vampire-red.png
+    - img/shiver-skill.png
+    - img/shiver-talent.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
