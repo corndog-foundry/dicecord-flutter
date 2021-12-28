@@ -1,7 +1,6 @@
 import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
 import 'package:dicecord_mobile/data_classes/argsets/arg_set_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EditCharacter5e extends StatefulWidget {

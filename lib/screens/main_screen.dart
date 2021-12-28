@@ -3,8 +3,6 @@ import 'package:dicecord_mobile/methods/generic_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:math';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'dart:io' show Platform;
 
 class MainScreen extends StatefulWidget {
@@ -119,38 +117,38 @@ class _MainScreenState extends State<MainScreen> {
     String newLabel = '';
 
     if (nBlue > 0) {
-      newLabel += "${nBlue} boost";
+      newLabel += "$nBlue boost";
     }
 
     if (nBlack > 0) {
       if (newLabel == '') {
-        newLabel += "${nBlack} setback";
+        newLabel += "$nBlack setback";
       } else {
-        newLabel += " + ${nBlack} setback";
+        newLabel += " + $nBlack setback";
       }
     }
 
     if (nGreen > 0) {
       if (newLabel == '') {
-        newLabel += "${nGreen} ability";
+        newLabel += "$nGreen ability";
       } else {
-        newLabel += " + ${nGreen} ability";
+        newLabel += " + $nGreen ability";
       }
     }
 
     if (nPurple > 0) {
       if (newLabel == '') {
-        newLabel += "${nPurple} difficulty";
+        newLabel += "$nPurple difficulty";
       } else {
-        newLabel += " + ${nPurple} difficulty";
+        newLabel += " + $nPurple difficulty";
       }
     }
 
     if (nYellow > 0) {
       if (newLabel == '') {
-        newLabel += "${nYellow} proficiency";
+        newLabel += "$nYellow proficiency";
       } else {
-        newLabel += " + ${nYellow} proficiency";
+        newLabel += " + $nYellow proficiency";
       }
     }
 
@@ -2474,6 +2472,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       );
     }
+    else return Text("No dice set found.")
   }
 
   @override

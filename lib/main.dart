@@ -18,8 +18,6 @@ import 'package:dicecord_mobile/screens/main_screen.dart';
 
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
-import 'dart:io' show Platform;
-import 'package:desktop_window/desktop_window.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

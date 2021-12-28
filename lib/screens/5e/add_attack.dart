@@ -1,5 +1,4 @@
 import 'package:dicecord_mobile/data_classes/5e/character_5e.dart';
-import 'package:dicecord_mobile/data_classes/5e/feature_5e.dart';
 import 'package:dicecord_mobile/data_classes/5e/attack_5e.dart';
 import 'package:dicecord_mobile/data_classes/argsets/arg_set_sheet.dart';
 import 'package:dicecord_mobile/methods/methods_5e.dart';
