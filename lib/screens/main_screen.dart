@@ -47,6 +47,9 @@ class _MainScreenState extends State<MainScreen> {
   // Holding roll
   int _holdingRollValue = 0;
 
+  // Animon Story rolls
+  int nDice = 0;
+
   void setHoldingRoll(int newValue) {
     setState(() {
       _holdingRollValue = newValue;
@@ -875,6 +878,51 @@ class _MainScreenState extends State<MainScreen> {
 
     return [results, fields];
 
+  }
+
+  List rollAnimonStory (bool verbose, bool isSetback, bool isBoost, ArgSetPool args) {
+    Random rng = new Random();
+    int nSuccesses = 0;
+    int roll;
+    List<int> rolls = [];
+
+    for (var i = 0; i < nDice; i++) {
+      roll = 1 + rng.nextInt(6);
+      rolls.add(roll);
+
+      if (isSetback && roll >= 5) {
+        nSuccesses++;
+      } else if (isBoost && roll >= 3) {
+        nSuccesses++;
+      } else if (roll >= 4) {
+        nSuccesses++;
+      }
+    }
+
+    String header = "${nDice.toString()} dice";
+    if (isSetback) {
+      header += " with Setback";
+    } else if (isBoost) {
+      header += " with Boost";
+    }
+    header +=  " = $nSuccesses Successes";
+
+    if (!Platform.isWindows) {
+      Fluttertoast.showToast(msg: header);
+    }
+
+    header = "${args.nickname} rolled $header";
+
+    List fields = [];
+
+    if (args.verboseMode) {
+      fields.add({
+        "name": "Rolls",
+        "value": rolls.toString()
+      });
+    }
+
+    GenericMethods.buildAndPushPayload(header, fields, args.webhookURL);
   }
 
   Widget getDiceSet(ArgSetPool args) {
@@ -2470,6 +2518,107 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceAround,
+          ),
+        ],
+      );
+    }
+    else if (args.diceType == 'Animon Story') {
+      return Column(
+        children: [
+          Center(
+            child: Text(
+              "How many dice would you like to roll?",
+              style: TextStyle(
+                color: Color.fromARGB(255, 188, 246, 254),
+                fontSize: 18.0
+              ),
+            ),
+          ),
+          SizedBox(height: 25.0,),
+          Row(
+            children: [
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.exposure_minus_1),
+                  onPressed: () => setState(() {
+                    if (nDice > 0) {
+                      nDice--;
+                    }
+                  }),
+                ),
+                color: Color.fromARGB(255, 221, 246, 254),
+              ),
+              Container(
+                child: Center(
+                  child: Text(
+                    nDice.toString(),
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 188, 246, 254),
+                      fontSize: 32.0
+                    ),
+                  ),
+                ),
+                color: Color.fromARGB(255, 20, 28, 47),
+                width: MediaQuery.of(context).size.width - 300,
+                height: 50,
+              ),
+              Container(
+                  child: IconButton(
+                    icon: Icon(Icons.plus_one),
+                    onPressed: () => setState(() {
+                      nDice++;
+                      calculateRollFormula();
+                    }),
+                  ),
+                  color: Color.fromARGB(255, 221, 246, 254)
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          ),
+          SizedBox(height: 15.0,),
+          MaterialButton(
+            onPressed: () {
+              rollAnimonStory(args.verboseMode, false, false, args);
+            },
+            minWidth: 180.0,
+            color: Color.fromARGB(255, 20, 28, 47),
+            child: Text(
+              "Roll Normal",
+              style: TextStyle(
+                color: Color.fromARGB(255, 188, 246, 254),
+                fontSize: 18.0
+              ),
+            ),
+          ),
+          SizedBox(height: 5.0,),
+          MaterialButton(
+            onPressed: () {
+              rollAnimonStory(args.verboseMode, true, false, args);
+            },
+            minWidth: 180.0,
+            color: Color.fromARGB(255, 20, 28, 47),
+            child: Text(
+              "Roll with Setback",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 188, 246, 254),
+                  fontSize: 18.0
+              ),
+            ),
+          ),
+          SizedBox(height: 5.0,),
+          MaterialButton(
+            onPressed: () {
+              rollAnimonStory(args.verboseMode, false, true, args);
+            },
+            minWidth: 180.0,
+            color: Color.fromARGB(255, 20, 28, 47),
+            child: Text(
+              "Roll with Boost",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 188, 246, 254),
+                  fontSize: 18.0
+              ),
+            ),
           ),
         ],
       );
